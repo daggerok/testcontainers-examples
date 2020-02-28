@@ -1,4 +1,4 @@
-# testcontainers examples
+# testcontainers examples [![CI](https://github.com/daggerok/testcontainers-examples/workflows/CI/badge.svg)](https://github.com/daggerok/testcontainers-examples/actions)
 
 * [ui](ui) - JavaEE web app under test for JBoss EAP runtime
 * [jboss-testconyainer-selenide-local-e2e-tests](jboss-testconyainer-selenide-local-e2e-tests) - Run custom JBoss EAP testcontainer, wait for health conditions and finally execute local Selenide e2e tests in Chrome browser
