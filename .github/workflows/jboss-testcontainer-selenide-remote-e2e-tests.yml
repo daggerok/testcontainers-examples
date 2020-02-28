@@ -1,0 +1,80 @@
+name: 'JBoss EAP 6.4.22 Testcontainer Selenide remote E2E tests'
+on: [push]
+
+jobs:
+
+  jboss-testcontainer-selenide-remote-e2e-tests:
+    strategy:
+      matrix:
+        java: [11]
+        os: [ubuntu-latest]
+        nodejs-version: [12]
+        python-version: [3.8]
+        docker-version: [19.09]
+        docker-channel: [stable]
+    name: jboss-testcontainer-selenide-remote-e2e-tests java ${{ matrix.java }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Git clone
+        uses: actions/checkout@v1
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Cache python ${{ matrix.python-version }} deps
+        uses: actions/cache@v1
+        with:
+          path: ~/.pip
+          key: ${{ runner.os }}-${{ matrix.os }}-pip-
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.os }}-pip-
+      - name: Install / upgrade pip
+        run: python -m pip install --upgrade pip setuptools
+      - name: Install HTTPie
+        run: pip install --upgrade httpie
+
+      - name: Setup Docker ${{ matrix.docker-channel }} ${{ matrix.docker-version }}
+        uses: docker-practice/actions-setup-docker@master
+        with:
+          docker_version: ${{ matrix.docker-version }}
+          docker_channel: ${{ matrix.docker-channel }}
+      - name: Cache docker ${{ matrix.docker-channel }} ${{ matrix.docker-version }}
+        uses: actions/cache@v1
+        with:
+          path: ~/.docker
+          key: ${{ runner.os }}-${{ matrix.os }}-docker-
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.os }}-docker-
+
+      - name: Setup NodeJS ${{ matrix.nodejs-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.nodejs-version }}
+      - name: Cache npm ${{ matrix.nodejs-version }} deps
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-${{ matrix.os }}-npm-
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.os }}-npm-
+      - name: Install npm apps (wait-port)
+        run: npm install -g wait-port
+
+      - name: Setup java ${{ matrix.java }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Cache maven deps ~/.m2/repository
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-${{ matrix.os }}-maven-
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.os }}-maven-
+      - name: Build ui app WAR file
+        run: cd $GITHUB_WORKSPACE && ./mvnw -f ui clean package
+
+      - name: Run testcontainers tests apps
+        run: cd $GITHUB_WORKSPACE && ./mvnw -f jboss-testcontainer-selenide-remote-e2e-tests clean test
