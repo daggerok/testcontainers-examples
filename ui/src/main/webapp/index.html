@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GUI</title>
+</head>
+<body>
+  <div id="app">Loading...</div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function onDOMContentLoaded(e) {
+      var element = document.querySelector('#app');
+      fetch('/ui/v1/api/names')
+        .catch(reason => element.textContent = 'oops: ' + reason)
+        .then(value => value.json())
+        .then(json => element.textContent = JSON.stringify(json));
+    }, false);
+  </script>
+</body>
+</html>

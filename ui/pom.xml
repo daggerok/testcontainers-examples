@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <parent>
+    <groupId>org.example</groupId>
+    <artifactId>testcontainers-examples</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>..</relativePath>
+  </parent>
+
+  <name>${project.parent.artifactId} => ${project.artifactId} (application under test)</name>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>ui</artifactId>
+  <packaging>war</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-api</artifactId>
+      <version>${jakarta.jakartaee-api.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.json</artifactId>
+      <version>${javax.json.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.jaxrs</groupId>
+      <artifactId>jackson-jaxrs-json-provider</artifactId>
+      <version>${jackson-jaxrs-json-provider.version}</version>
+    </dependency>
+
+    <!--<dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>-->
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>${docker-maven-plugin.version}</version>
+        <configuration>
+          <follow>false</follow>
+          <verbose>true</verbose>
+          <useColor>true</useColor>
+          <logDate>default</logDate>
+          <autoPull>always</autoPull>
+          <keepRunning>false</keepRunning>
+          <watchInterval>500</watchInterval>
+          <allContainers>true</allContainers>
+          <removeVolumes>true</removeVolumes>
+          <!--<autoCreateCustomNetworks>true</autoCreateCustomNetworks>-->
+          <autoCreateCustomNetworks>false</autoCreateCustomNetworks>
+          <images>
+            <image>
+              <name>daggerok/${project.parent.artifactId}-${project.artifactId}:${project.version}</name>
+              <run>
+                <imagePullPolicy>Never</imagePullPolicy>
+                <ports>
+                  <port>8080:8080</port>
+                </ports>
+                <wait>
+                  <!--<http>
+                    <url>http://127.0.0.1:8080/ui/</url>
+                    <method>GET</method>
+                    <status>200..399</status>
+                  </http>-->
+                  <time>10000</time>
+                  <healthy>true</healthy>
+                  <shutdown>500</shutdown>
+                </wait>
+              </run>
+            </image>
+          </images>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
