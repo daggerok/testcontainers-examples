@@ -2,6 +2,7 @@
 
 * [ui](ui) - JavaEE web app under test for JBoss EAP runtime
 * [jboss-testcontainer-selenide-local-e2e-tests](jboss-testcontainer-selenide-local-e2e-tests) - Run custom JBoss EAP testcontainer, wait for health conditions and finally execute local Selenide e2e tests in Chrome browser
+* [jboss-testcontainer-selenide-remote-e2e-tests](jboss-testcontainer-selenide-remote-e2e-tests) - Run custom JBoss EAP testcontainer, wait for health conditions and finally execute remote web driver Selenide e2e tests in Chrome or Firefox browsers
 
 ## JBoss as test-container selenide testing
 
