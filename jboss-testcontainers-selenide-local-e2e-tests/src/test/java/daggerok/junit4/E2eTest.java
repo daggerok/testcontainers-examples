@@ -28,6 +28,15 @@ public class E2eTest {
         .shouldHave(Condition.textCaseSensitive("trololo"));
   }
 
+  @Test
+  public void same_test_running_twice() {
+    Selenide.open(String.format("%s/ui/", jboss.getJBossUrl()));
+    $("#app")
+        .shouldBe(Condition.visible)
+        .shouldHave(Condition.textCaseSensitive("ololo"))
+        .shouldHave(Condition.textCaseSensitive("trololo"));
+  }
+
   @After
   public void after() {
     Selenide.closeWebDriver();

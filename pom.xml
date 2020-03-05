@@ -21,22 +21,22 @@
     <java.version>1.8</java.version>
     <lombok.version>1.18.12</lombok.version>
     <logback.version>1.2.3</logback.version>
-    <assertj.version>3.15.0</assertj.version>
+    <jackson.version>2.10.3</jackson.version>
     <selenide.version>5.7.0</selenide.version>
     <javax.json.version>1.1.4</javax.json.version>
     <junit-jupiter.version>5.6.0</junit-jupiter.version>
     <junit-platform.version>1.6.0</junit-platform.version>
     <testcontainers.version>1.13.0</testcontainers.version>
-    <!--<testcontainers.version>1.12.5</testcontainers.version>-->
     <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
     <maven-war-plugin.version>3.2.3</maven-war-plugin.version>
+    <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
     <docker-maven-plugin.version>0.33.0</docker-maven-plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     <jakarta.jakartaee-api.version>8.0.0</jakarta.jakartaee-api.version>
+    <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
     <maven-failsafe-plugin.version>3.0.0-M4</maven-failsafe-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
-    <jackson-jaxrs-json-provider.version>2.10.2.1</jackson-jaxrs-json-provider.version>
   </properties>
 
   <dependencies>
@@ -54,24 +54,37 @@
       <version>${junit-jupiter.version}</version>
       <scope>test</scope>
     </dependency>
-
-    <!--<dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <version>${assertj.version}</version>
-      <scope>test</scope>
-    </dependency>-->
   </dependencies>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>${jackson.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish</groupId>
+        <artifactId>javax.json</artifactId>
+        <version>${javax.json.version}</version>
+        <type>jar</type>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.platform</groupId>
+        <artifactId>jakarta.jakartaee-api</artifactId>
+        <version>${jakarta.jakartaee-api.version}</version>
+        <scope>provided</scope>
+        <type>jar</type>
+      </dependency>
+      <!--<dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
         <version>${spring-boot.version}</version>
         <type>pom</type>
         <scope>import</scope>
-      </dependency>
+      </dependency>-->
       <dependency>
         <groupId>org.testcontainers</groupId>
         <artifactId>testcontainers-bom</artifactId>
@@ -83,7 +96,7 @@
   </dependencyManagement>
 
   <build>
-    <defaultGoal>clean package</defaultGoal>
+    <defaultGoal>clean process-resources war:war test</defaultGoal>
 
     <plugins>
       <plugin>
@@ -96,6 +109,53 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven-surefire-plugin.version}</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>${maven-antrun-plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>ant-contrib</groupId>
+            <artifactId>ant-contrib</artifactId>
+            <version>20020829</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>logback</id>
+            <phase>process-resources</phase>
+            <goals><goal>run</goal></goals>
+            <configuration>
+              <target name="copy correct maven logback.xml and Dockerfile">
+                <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+                <if>
+                  <available file="${project.basedir}/src/main/resources/logback.maven.xml"/>
+                  <then>
+                    <copy file="${project.basedir}/src/main/resources/logback.maven.xml"
+                          toFile="${project.basedir}/src/main/resources/logback.xml"
+                          overwrite="true" />
+                  </then>
+                  <else>
+                    <echo message="skipping logback.xml for ${project.artifactId}"/>
+                  </else>
+                </if>
+                <if>
+                  <available file="${project.basedir}/Dockerfile.maven"/>
+                  <then>
+                    <copy file="${project.basedir}/Dockerfile.maven"
+                          toFile="${project.basedir}/Dockerfile"
+                          overwrite="true" />
+                  </then>
+                  <else>
+                    <echo message="skipping Dockerfile for ${project.artifactId}"/>
+                  </else>
+                </if>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
 

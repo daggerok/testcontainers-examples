@@ -75,7 +75,9 @@ jobs:
             ${{ runner.os }}-${{ matrix.os }}-maven-
 
       - name: Build ui app WAR file
-        run: cd $GITHUB_WORKSPACE && ./mvnw -f ui clean package
+        run: |
+          cd $GITHUB_WORKSPACE && ./mvnw clean process-resources
+          cd $GITHUB_WORKSPACE && ./mvnw -f ui package
 
       - name: Run testcontainers tests apps
         run: cd $GITHUB_WORKSPACE && ./mvnw -f jboss-testcontainers-selenide-dockerfile-e2e-tests -Dselenide.firefox
