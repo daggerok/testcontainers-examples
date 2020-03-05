@@ -1,4 +1,4 @@
-# testcontainers examples [![JBoss EAP 6.4.22 Testcontainer Selenide remote E2E tests](https://github.com/daggerok/testcontainers-examples/workflows/JBoss%20EAP%206.4.22%20Testcontainer%20Selenide%20remote%20E2E%20tests/badge.svg)](https://github.com/daggerok/testcontainers-examples/actions?query=workflow%3A%22JBoss+EAP+6.4.22+Testcontainer+Selenide+remote+E2E+tests%22)
+# testcontainers examples [![JBoss EAP 6.4.22 Testcontainers Selenide Dockerfile E2E tests](https://github.com/daggerok/testcontainers-examples/workflows/JBoss%20EAP%206.4.22%20Testcontainers%20Selenide%20Dockerfile%20E2E%20tests/badge.svg)](https://github.com/daggerok/testcontainers-examples/actions)
 
 * [ui](ui) - JavaEE web app under test for JBoss EAP runtime
 * [jboss-testcontainers-selenide-local-e2e-tests](jboss-testcontainers-selenide-local-e2e-tests) - Run custom JBoss EAP testcontainer, wait for health conditions and finally execute local Selenide e2e tests in Chrome browser
