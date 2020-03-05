@@ -74,7 +74,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.os }}-maven-
       - name: Build ui app WAR file
-        run: cd $GITHUB_WORKSPACE && ./mvnw -f ui clean package
+        run: |
+          cd $GITHUB_WORKSPACE && ./mvnw clean process-resources
+          cd $GITHUB_WORKSPACE && ./mvnw -f ui package
 
       - name: Run testcontainers tests apps
         run: cd $GITHUB_WORKSPACE && ./mvnw -f jboss-testcontainers-selenide-remote-e2e-tests clean test -Dselenide.browser=chrome

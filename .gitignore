@@ -14,6 +14,8 @@
 .DS_Store
 target/
 /.m2/
+build/
+.gradle/
 
 ### STS ###
 .apt_generated
@@ -34,3 +36,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# run ./gradle process-resources or ./mvnw process-resources
+ui/Dockerfile
+**/resources/logback.xml

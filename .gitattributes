@@ -5,6 +5,8 @@
 *.tcsh          text eol=lf
 **/gradlew      text eol=lf
 **/mvnw         text eol=lf
+gradlew         text eol=lf
+mvnw            text eol=lf
 #
 # https://help.github.com/articles/dealing-with-line-endings/
 #
