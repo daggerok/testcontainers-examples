@@ -1,8 +1,9 @@
-# testcontainers examples [![JBoss EAP 6.4.22 Testcontainers Selenide Dockerfile E2E tests](https://github.com/daggerok/testcontainers-examples/workflows/JBoss%20EAP%206.4.22%20Testcontainers%20Selenide%20Dockerfile%20E2E%20tests/badge.svg)](https://github.com/daggerok/testcontainers-examples/actions)
+# testcontainers examples [![JBoss EAP 6.4.22 Testcontainers Selenide Dockerfile Firefox E2E tests](https://github.com/daggerok/testcontainers-examples/workflows/JBoss%20EAP%206.4.22%20Testcontainers%20Selenide%20Dockerfile%20Firefox%20E2E%20tests/badge.svg)](https://github.com/daggerok/testcontainers-examples/actions)
 
 * [ui](ui) - JavaEE web app under test for JBoss EAP runtime
 * [jboss-testcontainers-selenide-local-e2e-tests](jboss-testcontainers-selenide-local-e2e-tests) - Run custom JBoss EAP testcontainer, wait for health conditions and finally execute local Selenide e2e tests in Chrome browser
 * [jboss-testcontainers-selenide-remote-e2e-tests](jboss-testcontainers-selenide-remote-e2e-tests) - Run custom JBoss EAP testcontainer, wait for health conditions and finally execute remote web driver Selenide e2e tests in Chrome or Firefox browsers
+* [jboss-testcontainers-selenide-dockerfile-e2e-tests](jboss-testcontainers-selenide-dockerfile-e2e-tests) - Run custom JBoss EAP testcontainer by using existing external Dockerfile, wait for health conditions and finally execute remote web driver Selenide e2e tests in Chrome or Firefox browsers
 
 ## JBoss as test-container selenide testing
 

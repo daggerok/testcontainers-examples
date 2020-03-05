@@ -1,4 +1,4 @@
-name: "JBoss EAP 6.4.22 Testcontainers Selenide Dockerfile E2E tests"
+name: "JBoss EAP 6.4.22 Testcontainers Selenide Dockerfile Firefox E2E tests"
 on: [push]
 
 jobs:
@@ -78,4 +78,4 @@ jobs:
         run: cd $GITHUB_WORKSPACE && ./mvnw -f ui clean package
 
       - name: Run testcontainers tests apps
-        run: cd $GITHUB_WORKSPACE && ./mvnw -f jboss-testcontainers-selenide-dockerfile-e2e-tests
+        run: cd $GITHUB_WORKSPACE && ./mvnw -f jboss-testcontainers-selenide-dockerfile-e2e-tests -Dselenide.firefox
