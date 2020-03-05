@@ -1,9 +1,9 @@
-name: 'JBoss EAP 6.4.22 Testcontainer Selenide remote E2E Firefox tests'
+name: "JBoss EAP 6.4.22 Testcontainers Selenide Dockerfile E2E tests"
 on: [push]
 
 jobs:
 
-  firefox-jboss-testcontainer-selenide-remote-e2e-tests:
+  jboss-testcontainers-selenide-dockerfile-e2e-tests:
     strategy:
       matrix:
         java: [11]
@@ -12,7 +12,7 @@ jobs:
         python-version: [3.8]
         docker-version: [19.09]
         docker-channel: [stable]
-    name: firefox-jboss-testcontainer-selenide-remote-e2e-tests java ${{ matrix.java }} on ${{ matrix.os }}
+    name: jboss-testcontainers-selenide-dockerfile-e2e-tests java ${{ matrix.java }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -73,8 +73,9 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.os }}-maven-
           restore-keys: |
             ${{ runner.os }}-${{ matrix.os }}-maven-
+
       - name: Build ui app WAR file
         run: cd $GITHUB_WORKSPACE && ./mvnw -f ui clean package
 
       - name: Run testcontainers tests apps
-        run: cd $GITHUB_WORKSPACE && ./mvnw -f jboss-testcontainer-selenide-remote-e2e-tests clean test -Dselenide.browser=firefox
+        run: cd $GITHUB_WORKSPACE && ./mvnw -f jboss-testcontainers-selenide-dockerfile-e2e-tests

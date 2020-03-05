@@ -1,9 +1,9 @@
-name: 'JBoss EAP 6.4.22 Testcontainer Selenide remote E2E tests'
+name: 'JBoss EAP 6.4.22 Testcontainers Selenide remote E2E Chrome tests'
 on: [push]
 
 jobs:
 
-  jboss-testcontainer-selenide-remote-e2e-tests:
+  chrome-jboss-testcontainers-selenide-remote-e2e-tests:
     strategy:
       matrix:
         java: [11]
@@ -12,7 +12,7 @@ jobs:
         python-version: [3.8]
         docker-version: [19.09]
         docker-channel: [stable]
-    name: jboss-testcontainer-selenide-remote-e2e-tests java ${{ matrix.java }} on ${{ matrix.os }}
+    name: chrome-jboss-testcontainers-selenide-remote-e2e-tests java ${{ matrix.java }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -77,4 +77,4 @@ jobs:
         run: cd $GITHUB_WORKSPACE && ./mvnw -f ui clean package
 
       - name: Run testcontainers tests apps
-        run: cd $GITHUB_WORKSPACE && ./mvnw -f jboss-testcontainer-selenide-remote-e2e-tests clean test
+        run: cd $GITHUB_WORKSPACE && ./mvnw -f jboss-testcontainers-selenide-remote-e2e-tests clean test -Dselenide.browser=chrome

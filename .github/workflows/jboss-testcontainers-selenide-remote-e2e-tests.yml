@@ -1,7 +1,9 @@
-name: UI
+name: 'JBoss EAP 6.4.22 Testcontainers Selenide remote E2E tests'
 on: [push]
+
 jobs:
-  ui:
+
+  jboss-testcontainers-selenide-remote-e2e-tests:
     strategy:
       matrix:
         java: [11]
@@ -10,7 +12,7 @@ jobs:
         python-version: [3.8]
         docker-version: [19.09]
         docker-channel: [stable]
-    name: ui java ${{ matrix.java }} on ${{ matrix.os }}
+    name: jboss-testcontainers-selenide-remote-e2e-tests java ${{ matrix.java }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -64,7 +66,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: ${{ matrix.java }}
-
       - name: Cache maven deps ~/.m2/repository
         uses: actions/cache@v1
         with:
@@ -72,15 +73,8 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.os }}-maven-
           restore-keys: |
             ${{ runner.os }}-${{ matrix.os }}-maven-
-      - name: Build maven apps
-        run: cd $GITHUB_WORKSPACE && ./mvnw -f ui clean package docker:build
-      - name: Run maven apps
-        run: cd $GITHUB_WORKSPACE && ./mvnw -f ui docker:start
-      - name: Test maven apps
-        run: |
-          wait-port 8080
-          http :8080/ui/
-          http :8080/ui/v1/api/names
-          http :8080/ui/v1/api/greeting
-      - name: Stop maven apps
-        run: cd $GITHUB_WORKSPACE && ./mvnw -f ui docker:stop docker:remove
+      - name: Build ui app WAR file
+        run: cd $GITHUB_WORKSPACE && ./mvnw -f ui clean package
+
+      - name: Run testcontainers tests apps
+        run: cd $GITHUB_WORKSPACE && ./mvnw -f jboss-testcontainers-selenide-remote-e2e-tests clean test

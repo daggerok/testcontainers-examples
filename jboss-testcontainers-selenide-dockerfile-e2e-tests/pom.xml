@@ -4,14 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <parent>
-    <artifactId>testcontainers-examples</artifactId>
     <groupId>org.example</groupId>
+    <artifactId>testcontainers-examples</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <relativePath>..</relativePath>
   </parent>
 
   <name>${project.parent.artifactId} => ${project.artifactId}</name>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>jboss-testcontainer-selenide-remote-e2e-tests</artifactId>
+  <artifactId>jboss-testcontainers-selenide-dockerfile-e2e-tests</artifactId>
   <packaging>jar</packaging>
 
   <dependencies>
@@ -62,7 +63,7 @@
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>testcontainers</artifactId>
-      <scope>test</scope>
+      <!--<scope>test</scope>-->
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>

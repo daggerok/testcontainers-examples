@@ -12,8 +12,9 @@
 
   <modules>
     <module>ui</module>
-    <module>jboss-testcontainer-selenide-local-e2e-tests</module>
-    <module>jboss-testcontainer-selenide-remote-e2e-tests</module>
+    <module>jboss-testcontainers-selenide-local-e2e-tests</module>
+    <module>jboss-testcontainers-selenide-remote-e2e-tests</module>
+    <module>jboss-testcontainers-selenide-dockerfile-e2e-tests</module>
   </modules>
 
   <properties>
@@ -25,7 +26,8 @@
     <javax.json.version>1.1.4</javax.json.version>
     <junit-jupiter.version>5.6.0</junit-jupiter.version>
     <junit-platform.version>1.6.0</junit-platform.version>
-    <testcontainers.version>1.12.5</testcontainers.version>
+    <testcontainers.version>1.13.0</testcontainers.version>
+    <!--<testcontainers.version>1.12.5</testcontainers.version>-->
     <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
     <maven-war-plugin.version>3.2.3</maven-war-plugin.version>
     <docker-maven-plugin.version>0.33.0</docker-maven-plugin.version>
