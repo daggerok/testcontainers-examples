@@ -25,7 +25,8 @@ jobs:
       - name: Cache docker ${{ matrix.docker-channel }} ${{ matrix.docker-version }}
         uses: actions/cache@v1
         with:
-          path: ~/.docker
+          #path: ~/.docker
+          path: /var/lib/docker
           key: ${{ runner.os }}-${{ matrix.os }}-docker-${{ hashFiles('**/Dockerfile*') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.os }}-docker-
