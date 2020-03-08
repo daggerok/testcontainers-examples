@@ -70,9 +70,10 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-${{ matrix.os }}-maven-
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.os }}-maven-
+            ${{ runner.os }}-maven-
+            ${{ runner.os }}-
       - name: Build ui app WAR file
         run: |
           cd $GITHUB_WORKSPACE && ./mvnw clean process-resources
