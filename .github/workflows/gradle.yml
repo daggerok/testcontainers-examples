@@ -22,14 +22,6 @@ jobs:
         with:
           docker_version: ${{ matrix.docker-version }}
           docker_channel: ${{ matrix.docker-channel }}
-      - name: Cache docker ${{ matrix.docker-channel }} ${{ matrix.docker-version }}
-        uses: actions/cache@v1
-        with:
-          #path: ~/.docker
-          path: /var/lib/docker
-          key: ${{ runner.os }}-${{ matrix.os }}-docker-${{ hashFiles('**/Dockerfile*') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.os }}-docker-
 
       - name: Setup java ${{ matrix.java }}
         uses: actions/setup-java@v1
