@@ -3,6 +3,7 @@ package daggerok.jboss;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
+import org.testcontainers.images.builder.ImageFromDockerfile;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,9 +35,7 @@ public class JBossEapContainer extends GenericContainer<JBossEapContainer> {
     Objects.requireNonNull(network, "Network may not be null.");
     String rootProjectDir = Paths.get(".").toAbsolutePath().toFile().getParentFile().getParent();
     Path dockerfilePath = Paths.get(rootProjectDir, "ui"); // $rootProjectDir/ui/Dockerfile
-    Future<String> dockerfile = new org.testcontainers.images.builder
-        .ImageFromDockerfile(IMAGE)
-        .withFileFromPath(".", dockerfilePath);
+    Future<String> dockerfile = new ImageFromDockerfile(IMAGE).withFileFromPath(".", dockerfilePath);
     return new JBossEapContainer(dockerfile).withNetwork(network)
                                             .withNetworkAliases(
                                                 Stream.concat(Arrays.stream(Optional.ofNullable(aliases)
