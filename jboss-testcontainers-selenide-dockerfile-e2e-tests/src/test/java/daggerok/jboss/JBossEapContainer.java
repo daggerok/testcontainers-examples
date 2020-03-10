@@ -12,7 +12,6 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.Future;
 import java.util.stream.Stream;
 
 public class JBossEapContainer extends GenericContainer<JBossEapContainer> {
@@ -22,7 +21,7 @@ public class JBossEapContainer extends GenericContainer<JBossEapContainer> {
 
   // super("daggerok/jboss-eap-6.4:6.4.22-alpine");
   // using ../ui/Dockerfile file: docker build -t daggerok/test-image ../ui
-  private JBossEapContainer(Future<String> dockerfile) { // <-- org.testcontainers.images.builder.ImageFromDockerfile
+  private JBossEapContainer(ImageFromDockerfile dockerfile) {
     super(dockerfile);
     withExposedPorts(JBOSS_PORT);
     waitingFor(new HttpWaitStrategy().forPort(JBOSS_PORT)
@@ -35,7 +34,7 @@ public class JBossEapContainer extends GenericContainer<JBossEapContainer> {
     Objects.requireNonNull(network, "Network may not be null.");
     String rootProjectDir = Paths.get(".").toAbsolutePath().toFile().getParentFile().getParent();
     Path dockerfilePath = Paths.get(rootProjectDir, "ui"); // $rootProjectDir/ui/Dockerfile
-    Future<String> dockerfile = new ImageFromDockerfile(IMAGE).withFileFromPath(".", dockerfilePath);
+    ImageFromDockerfile dockerfile = new ImageFromDockerfile(IMAGE).withFileFromPath(".", dockerfilePath);
     return new JBossEapContainer(dockerfile).withNetwork(network)
                                             .withNetworkAliases(
                                                 Stream.concat(Arrays.stream(Optional.ofNullable(aliases)
