@@ -2,7 +2,7 @@
 <configuration><!-- maven -->
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>[%highlight(%-4level)] %boldWhite(%d{HH:mm:ss.SSS}) [%cyan(%-25.25logger{25}) %highlight(%-7.7M{7})] - %gray(%msg%n)</pattern>
+      <pattern>[%highlight(%-4level)] %d{HH:mm:ss.SSS} [%cyan(%-25.25logger{25}) %highlight(%-7.7M{7})] - %msg%n</pattern>
       <!--<pattern>[%highlight(%-4level)] %boldWhite(%d{HH:mm:ss.SSS}) %magenta(%-10.10thread{10}) [ %cyan(%-25.25logger{25}) %highlight(%-25.25M{25}) ] - %gray(%msg)</pattern>-->
       <!--<pattern>%boldWhite(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) %magenta(%-10.10thread{10}) [ %cyan(%-25.25logger{25}) %highlight(%-25.25M{25}) ] - %gray(%msg%n)</pattern>-->
     </encoder>

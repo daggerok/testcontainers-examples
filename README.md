@@ -35,6 +35,13 @@ _requires Docker_
 ./mvnw clean ; ./mvnw -f ui package ; ./mvnw -f jboss-testcontainers-selenide-dockerfile-e2e-tests clean test
 ```
 
+_windows_
+
+```batch
+mvnw clean package -DskipTests
+mvnw test
+```
+
 to switch browser, use: `-Dselenide.browser=firefox`
 
 _gradle_
@@ -43,6 +50,13 @@ _gradle_
 ./gradlew clean ui:war ; ./gradlew test
 # on ci:
 ./gradlew clean ui:war ; ./gradlew test -x jboss-testcontainers-selenide-local-e2e-tests:test
+```
+
+_windows_
+
+```batch
+gradlew clean build -x test
+gradlew test
 ```
 
 ## other repositories
