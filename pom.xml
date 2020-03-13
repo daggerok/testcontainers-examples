@@ -15,6 +15,7 @@
     <module>jboss-testcontainers-selenide-local-e2e-tests</module>
     <module>jboss-testcontainers-selenide-remote-e2e-tests</module>
     <module>jboss-testcontainers-selenide-dockerfile-e2e-tests</module>
+    <module>testcontainers-spring-boot-jpa-pg-example</module>
   </modules>
 
   <properties>
@@ -27,6 +28,7 @@
     <junit-jupiter.version>5.6.0</junit-jupiter.version>
     <junit-platform.version>1.6.0</junit-platform.version>
     <testcontainers.version>1.13.0</testcontainers.version>
+    <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
     <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
     <maven-war-plugin.version>3.2.3</maven-war-plugin.version>
     <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
@@ -78,13 +80,6 @@
         <scope>provided</scope>
         <type>jar</type>
       </dependency>
-      <!--<dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>${spring-boot.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>-->
       <dependency>
         <groupId>org.testcontainers</groupId>
         <artifactId>testcontainers-bom</artifactId>

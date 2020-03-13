@@ -10,10 +10,10 @@
     <relativePath>..</relativePath>
   </parent>
 
-  <name>${project.parent.artifactId} => ${project.artifactId}</name>
-  <modelVersion>4.0.0</modelVersion>
-  <artifactId>jboss-testcontainers-selenide-remote-e2e-tests</artifactId>
   <packaging>jar</packaging>
+  <modelVersion>4.0.0</modelVersion>
+  <name>${project.parent.artifactId} => ${project.artifactId}</name>
+  <artifactId>jboss-testcontainers-selenide-remote-e2e-tests</artifactId>
 
   <dependencies>
     <dependency>
