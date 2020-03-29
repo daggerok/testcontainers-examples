@@ -69,5 +69,6 @@ gradlew test
 
 ## resources
 
+* [YouTube: Testing Spring Boot Applications](https://www.youtube.com/watch?v=Wpz6b8ZEgcU&feature=youtu.be&t=2088s)
 * https://github.com/sdras/awesome-actions
 * https://github.com/actions/virtual-environments/blob/master/images/linux/Ubuntu1804-README.md
