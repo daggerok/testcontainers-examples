@@ -61,6 +61,7 @@ gradlew test
 
 ## other repositories
 
+* https://github.com/daggerok/spring-data-jpa-repositories-test-containers-example
 * https://github.com/daggerok/testcontainers-selenide-example
 * https://github.com/selenide-examples/testcontainers
 * https://github.com/testcontainers/testcontainers-java/tree/master/examples
