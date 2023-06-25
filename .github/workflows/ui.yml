@@ -1,28 +1,29 @@
 name: UI
 on: [push]
+env:
+  JAVA_VERSION: '11'
 jobs:
   ui:
     strategy:
       matrix:
-        java: [11]
         os: [ubuntu-latest]
         nodejs-version: [12]
         python-version: [3.8]
         docker-version: [19.09]
         docker-channel: [stable]
-    name: ui java ${{ matrix.java }} on ${{ matrix.os }}
+    name: ui on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     steps:
       - name: Git clone
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
       - name: Cache python ${{ matrix.python-version }} deps
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ~/.pip
           key: ${{ runner.os }}-${{ matrix.os }}-pip-
@@ -39,7 +40,7 @@ jobs:
           docker_version: ${{ matrix.docker-version }}
           docker_channel: ${{ matrix.docker-channel }}
       - name: Cache docker ${{ matrix.docker-channel }} ${{ matrix.docker-version }}
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ~/.docker
           key: ${{ runner.os }}-${{ matrix.os }}-docker-${{ hashFiles('**/Dockerfile*') }}
@@ -47,11 +48,11 @@ jobs:
             ${{ runner.os }}-${{ matrix.os }}-docker-
 
       - name: Setup NodeJS ${{ matrix.nodejs-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.nodejs-version }}
       - name: Cache npm ${{ matrix.nodejs-version }} deps
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-${{ matrix.os }}-npm-
@@ -60,13 +61,15 @@ jobs:
       - name: Install npm apps (wait-port)
         run: npm install -g wait-port
 
-      - name: Setup java ${{ matrix.java }}
-        uses: actions/setup-java@v1
+      - name: Setup java ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v3
         with:
-          java-version: ${{ matrix.java }}
+          # 'temurin' 'zulu' 'adopt' 'adopt-hotspot' 'adopt-openj9' 'liberica' 'microsoft'
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
 
       - name: Cache maven deps ~/.m2/repository
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
