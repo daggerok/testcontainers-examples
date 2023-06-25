@@ -1,35 +1,25 @@
 name: Gradle
 on: [push]
+env:
+  JAVA_VERSION: '8'
 jobs:
   ui:
-    strategy:
-      matrix:
-        java: [8]
-        os: [ubuntu-latest]
-        nodejs-version: [12]
-        python-version: [3.8]
-        docker-version: [19.09]
-        docker-channel: [stable]
-    name: ui java ${{ matrix.java }} on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: ui gradle
+    runs-on: ubuntu-latest
 
     steps:
       - name: Git clone
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
-      - name: Setup Docker ${{ matrix.docker-channel }} ${{ matrix.docker-version }}
-        uses: docker-practice/actions-setup-docker@master
+      - name: Setup java ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v3
         with:
-          docker_version: ${{ matrix.docker-version }}
-          docker_channel: ${{ matrix.docker-channel }}
-
-      - name: Setup java ${{ matrix.java }}
-        uses: actions/setup-java@v1
-        with:
-          java-version: ${{ matrix.java }}
+          # 'temurin' 'zulu' 'adopt' 'adopt-hotspot' 'adopt-openj9' 'liberica' 'microsoft'
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
 
       - name: Cache gradle deps ~/.gradle
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ~/.gradle
           key: ${{ runner.os }}-${{ matrix.os }}-gradle-
